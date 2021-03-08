@@ -41,12 +41,12 @@ void		ft_set_stack(char **argv, t_stack **a)
 	{
 		len = ft_strlen(argv[i]);
 		if (len == 1 && (argv[i][0] == '-' || argv[i][0] == '+'))
-			ft_msg_exit(*a, 0);
+			ft_msg_exit(*a, 0, 0);
 		if (len > 11 || ft_isdigit_str(argv[i]) == 0)
-			ft_msg_exit(*a, 0);
+			ft_msg_exit(*a, 0, 0);
 		n = ft_atol(argv[i]);
 		if (n < -2147483648 || n > 2147483647 || ft_duplicate_check(*a, n) == 0)
-			ft_msg_exit(*a, 0);
+			ft_msg_exit(*a, 0, 0);
 		ft_stackadd_back(a, ft_stacknew(n));
 	}
 }

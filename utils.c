@@ -25,3 +25,21 @@ long long	ft_atol(const char *str)
 	}
 	return (result * minus);
 }
+
+char		*ft_strdup_size(const char *s1, int left, int right)
+{
+	int		i;
+	char	*temp;
+
+	temp = (char *)malloc(sizeof(char) * (right - left + 1));
+	if (temp == 0)
+		return (0);
+	temp[right - left] = '\0';
+	i = 0;
+	while (i < (right - left))
+	{
+		temp[i] = s1[left + i];
+		i++;
+	}
+	return (temp);
+}

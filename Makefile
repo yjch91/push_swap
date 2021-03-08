@@ -9,7 +9,7 @@ LFLAGS = -L ./libft
 LIBS = -lft
 
 SRCS = ft_stack.c utils.c ft_swap.c ft_push.c ft_rotate.c ft_set_stack.c \
-	   ft_checker.c
+	get_next_line.c   ft_checker.c
 
 OBJS = $(SRCS:.c=.o)
 

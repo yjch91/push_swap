@@ -13,7 +13,7 @@ typedef struct		s_stack
 }					t_stack;
 
 // ft_checker
-void		ft_msg_exit(t_stack *a, t_stack *b);
+void		ft_msg_exit(t_stack *a, t_stack *b, char *line);
 
 // ft_stack
 void		ft_stackadd_back(t_stack **st, t_stack *new);
@@ -24,6 +24,7 @@ int			ft_stacksize(t_stack *st);
 
 // utils
 long long	ft_atol(const char *str);
+char		*ft_strdup_size(const char *s1, int left, int right);
 
 // ft_swap
 void		ft_stackswap(t_stack *st, t_stack *st2);
@@ -37,5 +38,8 @@ void		ft_stackrotate_r(t_stack **st, t_stack **st2);
 
 // ft_set_stack
 void		ft_set_stack(char **argv, t_stack **a);
+
+// get_next_line
+int		get_next_line(int fd, char **line);
 
 #endif
