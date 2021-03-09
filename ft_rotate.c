@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	ft_stackrotate(t_stack **st, t_stack **st2)
+void		ft_stackrotate(t_stack **st, t_stack **st2)
 {
 	t_stack	*temp;
 
@@ -20,7 +20,7 @@ void	ft_stackrotate(t_stack **st, t_stack **st2)
 	}
 }
 
-void	ft_stackrm_last(t_stack **st)
+static void	ft_stackrotate_r2(t_stack **st)
 {
 	t_stack *last;
 	t_stack	*temp;
@@ -39,10 +39,10 @@ void	ft_stackrm_last(t_stack **st)
 	free(last);
 }
 
-void	ft_stackrotate_r(t_stack **st, t_stack **st2)
+void		ft_stackrotate_r(t_stack **st, t_stack **st2)
 {
 	if (ft_stacksize(*st) > 1)
-		ft_stackrm_last(st);
+		ft_stackrotate_r2(st);
 	if (st2 != 0 && ft_stacksize(*st2) > 1)
-		ft_stackrm_last(st2);
+		ft_stackrotate_r2(st2);
 }

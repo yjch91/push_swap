@@ -67,11 +67,13 @@ void	ft_read_cmd(t_stack **a, t_stack **b)
 	char	*line;
 	int		n;
 
-	while ((n = get_next_line(0, &line)) > 0)
+	n = get_next_line(0, &line);
+	while (n > 0)
 	{
 		ft_apply_cmd(a, b, line);
 		ft_print(*a, *b);
 		free(line);
+		n = get_next_line(0, &line);
 	}
 	if (n == 0)
 		free(line);
