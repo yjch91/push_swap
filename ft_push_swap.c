@@ -11,7 +11,7 @@ void	ft_msg_exit(t_stack *a, t_stack *b, char *line)
 	exit(0);
 }
 
-void	ft_apply_oper(t_stack **a, t_stack **b, char *line)
+void	ft_apply_cmd(t_stack **a, t_stack **b, char *line)
 {
 	if (ft_strncmp(line, "sa", 2) == 0 && ft_strlen(line) == 2)
 		ft_stackswap(*a, 0);
@@ -39,6 +39,27 @@ void	ft_apply_oper(t_stack **a, t_stack **b, char *line)
 		ft_msg_exit(*a, *b, line);
 }
 
+int		ft_sort_check(t_stack *a, t_stack *b)
+{
+	int		flag;
+	int		n;
+	t_stack	*c;
+
+	c = a->next;
+	n = a->num;
+	flag = 1;
+	if (ft_stacksize(b) != 0)
+		flag = 0;
+	while (c != 0 && flag == 1)
+	{
+		if (n > c->num)
+			flag = 0;
+		n = c->num;
+		c = c->next;
+	}
+	return (flag);
+}
+
 int		main(int argc, char **argv)
 {
 	t_stack *a;
@@ -49,9 +70,13 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	ft_set_stack(argv, &a);
-	ft_apply_oper(&a, &b, "sa");
-	write(1, "sa\n", 3);
-	ft_apply_oper(&a, &b, "rra");
-	write(1, "rra\n", 4);
+	while (ft_sort_check(a, b) == 0)
+	{
+	//	ft_apply_cmd(&a, &b, "ra");
+	//	ft_putstr_fd("ra", 1);
+	//	write(1, "\n", 1);
+	}
+	ft_stackclear(&a);
+	ft_stackclear(&b);
 	return (0);
 }
