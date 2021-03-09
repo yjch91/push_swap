@@ -11,7 +11,7 @@ void	ft_msg_exit(t_stack *a, t_stack *b, char *line)
 	exit(0);
 }
 
-void	ft_apply_cmd(t_stack **a, t_stack **b, char *line)
+void	ft_apply_oper(t_stack **a, t_stack **b, char *line)
 {
 	if (ft_strncmp(line, "sa", 2) == 0 && ft_strlen(line) == 2)
 		ft_stackswap(*a, 0);
@@ -39,75 +39,9 @@ void	ft_apply_cmd(t_stack **a, t_stack **b, char *line)
 		ft_msg_exit(*a, *b, line);
 }
 
-void	ft_print(t_stack *a, t_stack *b)
-{
-	t_stack	*c;
-
-	c = a;
-	write(1, "a : ", 4);
-	while (c != 0)
-	{
-		ft_putnbr_fd(c->num, 1);
-		write(1, " ", 1);
-		c = c->next;
-	}
-	c = b;
-	write(1, "<> b : ", 7);
-	while (c != 0)
-	{
-		ft_putnbr_fd(c->num, 1);
-		write(1, " ", 1);
-		c = c->next;
-	}
-	write(1, "\n", 1);
-}
-
-void	ft_read_cmd(t_stack **a, t_stack **b)
-{
-	char	*line;
-	int		n;
-
-	while ((n = get_next_line(0, &line)) > 0)
-	{
-		ft_apply_cmd(a, b, line);
-		ft_print(*a, *b);
-		free(line);
-	}
-	if (n == 0)
-		free(line);
-	if (n == -1)
-		ft_msg_exit(*a, *b, 0);
-}
-
-void	ft_sort_check(t_stack *a, t_stack *b)
-{
-	int		flag;
-	int		n;
-	t_stack	*c;
-
-	c = a->next;
-	n = a->num;
-	flag = 1;
-	if (ft_stacksize(b) != 0)
-		flag = 0;
-	while (c != 0 && flag == 1)
-	{
-		if (n > c->num)
-			flag = 0;
-		n = c->num;
-		c = c->next;
-	}
-	if (flag == 1)
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
-	ft_stackclear(&a);
-	ft_stackclear(&b);
-}
-
 int		main(int argc, char **argv)
 {
-	t_stack	*a;
+	t_stack *a;
 	t_stack *b;
 
 	a = 0;
@@ -115,7 +49,9 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	ft_set_stack(argv, &a);
-	ft_read_cmd(&a, &b);
-	ft_sort_check(a, b);
+	ft_apply_oper(&a, &b, "sa");
+	write(1, "sa\n", 3);
+	ft_apply_oper(&a, &b, "rra");
+	write(1, "rra\n", 4);
 	return (0);
 }

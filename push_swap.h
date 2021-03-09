@@ -40,6 +40,6 @@ void		ft_stackrotate_r(t_stack **st, t_stack **st2);
 void		ft_set_stack(char **argv, t_stack **a);
 
 // get_next_line
-int		get_next_line(int fd, char **line);
+int			get_next_line(int fd, char **line);
 
 #endif

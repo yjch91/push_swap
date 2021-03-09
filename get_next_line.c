@@ -12,17 +12,16 @@ static	int	find_save(char **save, char **line)
 			i++;
 		if ((*save)[i] != '\n')
 			return (0);
-		if ((*line = ft_strdup_size(*save, 0, i)) == 0)
+		*line = ft_strdup_size(*save, 0, i);
+		if (*line == 0)
 		{
 			free(*save);
 			return (-1);
 		}
-		if ((temp = ft_strdup_size(*save, i + 1, ft_strlen(*save))) == 0)
-		{
-			free(*save);
-			return (-1);
-		}
+		temp = ft_strdup_size(*save, i + 1, ft_strlen(*save));
 		free(*save);
+		if (temp == 0)
+			return (-1);
 		*save = temp;
 		return (1);
 	}
@@ -43,7 +42,8 @@ static int	save_plus_buf(char **save, char *buf, int n)
 	}
 	else
 	{
-		if ((*save = ft_strdup_size(buf, 0, n)) == 0)
+		*save = ft_strdup_size(buf, 0, n);
+		if (*save == 0)
 			return (-1);
 	}
 	return (0);
@@ -55,21 +55,22 @@ static int	read_line(int fd, char **line, char **save)
 	int		m;
 	char	*buf;
 
-	if ((buf = (char *)malloc(sizeof(char) * (1 + 1))) == 0)
+	buf = (char *)malloc(sizeof(char) * (1 + 1));
+	if (buf == 0)
 		return (-1);
-	while ((n = read(fd, buf, 1)) > 0)
+	n = read(fd, buf, 1);
+	while (n > 0)
 	{
 		buf[n] = '\0';
-		if ((m = save_plus_buf(&(*save), buf, n)) == -1)
-		{
-			free(buf);
-			return (-1);
-		}
-		if ((m = find_save(&(*save), &(*line))) != 0)
+		m = save_plus_buf(&(*save), buf, n);
+		if (m != -1)
+			m = find_save(&(*save), &(*line));
+		if (m != 0)
 		{
 			free(buf);
 			return (m);
 		}
+		n = read(fd, buf, 1);
 	}
 	free(buf);
 	return (n);
@@ -79,7 +80,8 @@ static int	rest_clear(char **save, char **line)
 {
 	if (*save != 0)
 	{
-		if ((*line = ft_strjoin("", *save)) == 0)
+		*line = ft_strjoin("", *save);
+		if (*line == 0)
 		{
 			free(*save);
 			*save = NULL;
@@ -88,7 +90,8 @@ static int	rest_clear(char **save, char **line)
 	}
 	else if (*save == 0)
 	{
-		if ((*line = (char *)malloc(sizeof(char))) == 0)
+		*line = (char *)malloc(sizeof(char));
+		if (*line == 0)
 			return (-1);
 		(*line)[0] = '\0';
 	}
@@ -104,7 +107,8 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	if (save[fd] != 0)
 	{
-		if ((n = find_save(&save[fd], &(*line))) != 0)
+		n = find_save(&save[fd], &(*line));
+		if (n != 0)
 			return (n);
 	}
 	n = read_line(fd, &(*line), &save[fd]);
