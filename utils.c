@@ -17,9 +17,11 @@ long long	ft_atol(const char *str)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (result >= 922337203685477580 && str[i] > '7' && minus == 1)
+		if (minus == 1 && (result > 922337203685477580 ||
+					(result == 922337203685477580 && str[i] > '7')))
 			return (-1);
-		else if (result >= 922337203685477580 && str[i] > '8' && minus == -1)
+		else if (minus == -1 && (result > 922337203685477580 ||
+					(result == 922337203685477580 && str[i] > '8')))
 			return (0);
 		result = result * 10 + str[i++] - '0';
 	}
