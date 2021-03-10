@@ -45,3 +45,25 @@ char		*ft_strdup_size(const char *s1, int left, int right)
 	}
 	return (temp);
 }
+
+void		ft_init_ary(t_array *ary, t_stack *st)
+{
+	int i;
+
+	i = 0;
+	while (st != 0)
+	{
+		ary->ary[i++] = st->num;
+		st = st->next;
+	}
+	ary->last = i - 1;
+}
+
+void		ft_wrong_cmd_exit(t_array *a, t_array *b, char *line)
+{
+	write(2, "Error\n", 6);
+	free(a->ary);
+	free(b->ary);
+	free(line);
+	exit(0);
+}
