@@ -20,9 +20,9 @@ void	ft_apply_cmd(t_stack **a, t_stack **b, char *line)
 	else if (ft_strncmp(line, "ss", 2) == 0 && ft_strlen(line) == 2)
 		ft_stackswap(*a, *b);
 	else if (ft_strncmp(line, "pa", 2) == 0 && ft_strlen(line) == 2)
-		ft_stackpush(a, b);
-	else if (ft_strncmp(line, "pb", 2) == 0 && ft_strlen(line) == 2)
 		ft_stackpush(b, a);
+	else if (ft_strncmp(line, "pb", 2) == 0 && ft_strlen(line) == 2)
+		ft_stackpush(a, b);
 	else if (ft_strncmp(line, "ra", 2) == 0 && ft_strlen(line) == 2)
 		ft_stackrotate(a, 0);
 	else if (ft_strncmp(line, "rb", 2) == 0 && ft_strlen(line) == 2)
