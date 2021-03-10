@@ -87,12 +87,15 @@ void	ft_sort_check(t_stack *a, t_stack *b)
 	int		n;
 	t_stack	*c;
 
-	c = a->next;
-	n = a->num;
+	if (a != 0)
+	{
+		c = a->next;
+		n = a->num;
+	}
 	flag = 1;
 	if (ft_stacksize(b) != 0)
 		flag = 0;
-	while (c != 0 && flag == 1)
+	while (flag == 1 && c != 0)
 	{
 		if (n > c->num)
 			flag = 0;

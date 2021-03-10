@@ -45,12 +45,14 @@ int		ft_sort_check(t_stack *a, t_stack *b)
 	int		n;
 	t_stack	*c;
 
+	if (a == 0)
+		return (0);
 	c = a->next;
 	n = a->num;
 	flag = 1;
 	if (ft_stacksize(b) != 0)
 		flag = 0;
-	while (c != 0 && flag == 1)
+	while (flag == 1 && c != 0)
 	{
 		if (n > c->num)
 			flag = 0;
@@ -60,21 +62,51 @@ int		ft_sort_check(t_stack *a, t_stack *b)
 	return (flag);
 }
 
+int		min_num(t_stack *a)
+{
+	int	min;
+
+	min = a->num;
+	while (a != 0)
+	{
+		if (min > a->num)
+			min = a->num;
+		a = a->next;
+	}
+	return (min);
+}
+
+#include <stdio.h>
+
 int		main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
+	int		min;
 
 	a = 0;
 	b = 0;
 	if (argc == 1)
 		return (0);
 	ft_set_stack(argv, &a);
-	while (ft_sort_check(a, b) == 0)
+	if (ft_sort_check(a, b) == 0)
 	{
-	//	ft_apply_cmd(&a, &b, "ra");
-	//	ft_putstr_fd("ra", 1);
-	//	write(1, "\n", 1);
+		while (ft_stacksize(a) != 0)
+		{
+			min = min_num(a);
+			while (a->num != min)
+			{
+				ft_apply_cmd(&a, &b, "ra");
+				printf("ra\n");
+			}
+			ft_apply_cmd(&a, &b, "pb");
+			printf("pb\n");
+		}
+		while (ft_stacksize(b) != 0)
+		{
+			ft_apply_cmd(&a, &b, "pa");
+			printf("pa\n");
+		}
 	}
 	ft_stackclear(&a);
 	ft_stackclear(&b);
