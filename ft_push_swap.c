@@ -1,4 +1,5 @@
 #include "push_swap.h"
+#include <stdio.h>
 
 void	ft_msg_exit(t_stack *a, t_stack *b, char *line)
 {
@@ -61,7 +62,7 @@ int		ft_sort_check(t_stack *a, t_stack *b)
 	}
 	return (flag);
 }
-
+/*
 int		min_num(t_stack *a)
 {
 	int	min;
@@ -76,7 +77,6 @@ int		min_num(t_stack *a)
 	return (min);
 }
 
-#include <stdio.h>
 
 int		main(int argc, char **argv)
 {
@@ -107,6 +107,24 @@ int		main(int argc, char **argv)
 			ft_apply_cmd(&a, &b, "pa");
 			printf("pa\n");
 		}
+	}
+	ft_stackclear(&a);
+	ft_stackclear(&b);
+	return (0);
+}
+*/
+int		main(int argc, char **argv)
+{
+	t_stack *a;
+	t_stack *b;
+
+	a = 0;
+	b = 0;
+	if (argc == 1)
+		return (0);
+	ft_set_stack(argv, &a);
+	if (ft_sort_check(a, b) == 0)
+	{
 	}
 	ft_stackclear(&a);
 	ft_stackclear(&b);

@@ -33,20 +33,27 @@ static int	ft_duplicate_check(t_stack *a, int n)
 void		ft_set_stack(char **argv, t_stack **a)
 {
 	int			i;
+	int			j;
 	int			len;
 	long long	n;
+	char		**split;
 
 	i = 0;
 	while (argv[++i] != 0)
 	{
-		len = ft_strlen(argv[i]);
-		if (len == 1 && (argv[i][0] == '-' || argv[i][0] == '+'))
-			ft_msg_exit(*a, 0, 0);
-		if (len > 11 || ft_isdigit_str(argv[i]) == 0)
-			ft_msg_exit(*a, 0, 0);
-		n = ft_atol(argv[i]);
-		if (n < -2147483648 || n > 2147483647 || ft_duplicate_check(*a, n) == 0)
-			ft_msg_exit(*a, 0, 0);
-		ft_stackadd_back(a, ft_stacknew(n));
+		split = ft_split(argv[i], 32);
+		j = -1;
+		while (split[++j] != 0)
+		{
+			len = ft_strlen(split[j]);
+			if (len == 1 && (split[j][0] == '-' || split[j][0] == '+'))
+				ft_msg_exit(*a, 0, 0);
+			if (len > 11 || ft_isdigit_str(split[j]) == 0)
+				ft_msg_exit(*a, 0, 0);
+			n = ft_atol(split[j]);
+			if (n < -2147483648 || n > 2147483647 || ft_duplicate_check(*a, n) == 0)
+				ft_msg_exit(*a, 0, 0);
+			ft_stackadd_back(a, ft_stacknew(n));
+		}
 	}
 }
