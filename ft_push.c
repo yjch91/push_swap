@@ -17,19 +17,60 @@ void	ft_arypush(t_array *get, t_array *set)
 {
 	int	i;
 
-	i = set->last + 1;
-	while (i > 0)
+	if (get->last > -1)
 	{
-		set->ary[i] = set->ary[i - 1];
-		i--;
+		i = set->last + 1;
+		while (i > 0)
+		{
+			set->ary[i] = set->ary[i - 1];
+			i--;
+		}
+		set->ary[0] = get->ary[0];
+		i = 0;
+		while (i < get->last)
+		{
+			get->ary[i] = get->ary[i + 1];
+			i++;
+		}
+		get->last--;
+		set->last++;
 	}
-	set->ary[0] = get->ary[0];
-	i = 0;
-	while (i < get->last)
+}
+
+t_array	*ft_arypush_get(t_array *get, int size)
+{
+	t_array	*result;
+	int		i;
+
+	result = ft_arycopy(get, size);
+	if (get->last > -1)
 	{
-		get->ary[i] = get->ary[i + 1];
-		i++;
+		i = 0;
+		while (i < get->last)
+		{
+			result->ary[i] = get->ary[i + 1];
+			i++;
+		}
+		result->last--;
 	}
-	get->last--;
-	set->last++;
+	return (result);
+}
+
+t_array	*ft_arypush_set(t_array *get, t_array *set, int size)
+{
+	t_array *result;
+	int		i;
+
+	result = ft_arycopy(set, size);
+	if (get->last > -1)
+	{
+		i = set->last + 1;
+		while (i > 0)
+		{
+			result->ary[i] = set->ary[i - 1];
+			i--;
+		}
+		result->last++;
+	}
+	return (result);
 }

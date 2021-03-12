@@ -41,3 +41,12 @@ void	ft_aryswap(t_array *ary1, t_array *ary2)
 		ary2->ary[1] = n;
 	}
 }
+
+t_array	*ft_aryswap_rt(t_array *ary, int size)
+{
+	t_array	*result;
+	
+	result = ft_arycopy(ary, size);
+	ft_aryswap(result, 0);
+	return (result);
+}

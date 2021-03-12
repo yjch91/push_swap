@@ -104,3 +104,22 @@ void		ft_aryrotate_r(t_array *ary1, t_array *ary2)
 		ary2->ary[i] = n;
 	}
 }
+
+t_array		*ft_aryrotate_rt(t_array *ary, int size)
+{
+	t_array	*result;
+
+	result = ft_arycopy(ary, size);
+	ft_aryrotate(result, 0);
+	return (result);
+}
+
+t_array		*ft_aryrotate_r_rt(t_array *ary, int size)
+{
+	t_array	*result;
+
+	result = ft_arycopy(ary, size);
+	ft_aryrotate_r(result, 0);
+	return (result);
+}
+

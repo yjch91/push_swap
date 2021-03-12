@@ -59,6 +59,23 @@ void		ft_init_ary(t_array *ary, t_stack *st)
 	ary->last = i - 1;
 }
 
+t_array		*ft_arycopy(t_array *ary, int size)
+{
+	t_array *result;
+	int		i;
+
+	result = (t_array *)malloc(sizeof(t_array));
+	result->ary = (int *)malloc(sizeof(int) * size);
+	i = 0;
+	while (i <= ary->last)
+	{
+		result->ary[i] = ary->ary[i];
+		i++;
+	}
+	result->last = ary->last;
+	return (result);
+}
+
 void		ft_wrong_cmd_exit(t_array *a, t_array *b, char *line)
 {
 	write(2, "Error\n", 6);
