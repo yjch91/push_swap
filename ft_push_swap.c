@@ -126,7 +126,34 @@ void		bubble_sort(t_array *c, int n)
 	}
 }
 
-void	solution_3a(t_array *a, t_array *b)
+void	solution_3b_r(t_array *a, t_array *b)
+{
+	int	x;
+	int	y;
+	int z;
+
+	x = b->ary[0];
+	y = b->ary[1];
+	z = b->ary[2];
+	if (x < y && y < z)
+	{
+		ft_apply_cmd(a, b, "sb");
+		ft_apply_cmd(a, b, "rrb");
+	}
+	else if (x < y && y > z && x < z)
+		ft_apply_cmd(a, b, "rb");
+	else if (x > y && y < z && x < z)
+		ft_apply_cmd(a, b, "rrb");
+	else if (x < y && y > z && x > z)
+		ft_apply_cmd(a, b, "sb");
+	else if (x > y && y < z && x > z)
+	{
+		ft_apply_cmd(a, b, "rrb");
+		ft_apply_cmd(a, b, "sb");
+	}
+}
+
+void		solution_3a(t_array *a, t_array *b)
 {
 	int	x;
 	int	y;
@@ -156,12 +183,7 @@ void	solution_3a(t_array *a, t_array *b)
 void		solution(t_array *a, t_array *b, int n)
 {
 	t_array	*c;
-	int		max;
-	int		push_num;
 	int		i;
-	int		count;
-	int		back;
-	int		pivot;
 
 	if (n == 3)
 		solution_3a(a, b);
@@ -169,45 +191,152 @@ void		solution(t_array *a, t_array *b, int n)
 	{
 		c = ft_arycopy(a, n);
 		bubble_sort(c, n);
-		pivot = c->ary[n / 2];
-		count = 1;
-		while (n >= 3)
+		i = 0;
+		while (i < 3)
 		{
-			max = c->ary[3 * count - 1];
-			push_num = 0;
-			back = 0;
-			i = 0;
-			while (push_num < 3)
+			if (a->ary[0] <= c->ary[2])
 			{
-				if (a->ary[0] <= max)
-				{
-					ft_apply_cmd(a, b, "pb");
-					push_num++;
-				}
-				else
-				{
-					ft_apply_cmd(a, b, "ra");
-					back++;
-				}
+				ft_apply_cmd(a, b, "pb");
+				i++;
 			}
-			solution_3b(a, b);
-			while (count != 1 && back--)
-				ft_apply_cmd(a, b, "rra");
-			i = 3;
-			while (i--)
-			{
-				ft_apply_cmd(a, b, "pa");
+			else
 				ft_apply_cmd(a, b, "ra");
-			}
-			n -= 3;
-			count++;
 		}
+		n -= 3;
 		if (n == 2 && a->ary[0] > a->ary[1])
 			ft_apply_cmd(a, b, "sa");
-		while (n--)
-			ft_apply_cmd(a, b, "ra");
+		while (b->last != -1)
+		{
+			solution_3b_r(a, b);
+			i = 3;
+			while (i--)
+				ft_apply_cmd(a, b, "pa");
+		}
 	}
 }
+
+void		solution_3a2(t_array *a, t_array *b)
+{
+	int	x;
+	int	y;
+	int z;
+
+	x = a->ary[0];
+	y = a->ary[1];
+	z = a->ary[2];
+	if (x < y && y > z && x < z)
+	{
+		ft_apply_cmd(a, b, "ra");
+		ft_apply_cmd(a, b, "sa");
+		ft_apply_cmd(a, b, "rra");
+	}
+	else if (x > y && y < z && x < z)
+		ft_apply_cmd(a, b, "sa");
+	else if (x < y && y > z && x > z)
+	{
+		ft_apply_cmd(a, b, "ra");
+		ft_apply_cmd(a, b, "sa");
+		ft_apply_cmd(a, b, "pb");
+		ft_apply_cmd(a, b, "rra");
+		ft_apply_cmd(a, b, "pa");
+	}
+	else if (x > y && y < z && x > z)
+	{
+		ft_apply_cmd(a, b, "sa");
+		ft_apply_cmd(a, b, "ra");
+		ft_apply_cmd(a, b, "sa");
+		ft_apply_cmd(a, b, "rra");
+	}
+	else if (x > y && y > z)
+	{
+		ft_apply_cmd(a, b, "sa");
+		ft_apply_cmd(a, b, "ra");
+		ft_apply_cmd(a, b, "sa");
+		ft_apply_cmd(a, b, "rra");
+		ft_apply_cmd(a, b, "sa");
+	}
+}
+
+void		sol(t_array *a, t_array *b, int n)
+{
+	int		i;
+	int		x;
+	int		count;
+	int		push_num;
+	t_array	*c;
+	int		group;
+	int		back;
+	int		num;
+	int		set;
+
+	c = ft_arycopy(a, n);
+	bubble_sort(c, n);
+	count = 0;
+	group = 1;
+	x = 0;
+	set = n / (n / 10);
+	if (set == 0)
+		set = 1;
+	while (group <= set)
+	{
+		num = c->ary[n * group / set - 1];
+		back = 0;
+		while (x < (n * group / set))
+		{
+			if (a->ary[0] <= num)
+			{
+				ft_apply_cmd(a, b, "pb");
+				x++;
+			}
+			else
+			{
+				ft_apply_cmd(a, b, "ra");
+				back++;
+			}
+		}
+		if (group > 1 && group < set)
+			while (back--)
+				ft_apply_cmd(a, b, "rra");
+		while (b->last >= 2)
+		{
+			push_num = 0;
+			while (push_num++ < 3)
+			{
+				num = c->ary[count++];
+				i = 0;
+				while (b->ary[i] != num)
+					i++;
+				if (i <= (b->last + 1) / 2)
+					while (i--)
+						ft_apply_cmd(a, b, "rb");
+				else
+				{
+					i = b->last + 1 - i;
+					while (i--)
+						ft_apply_cmd(a, b, "rrb");
+				}
+				ft_apply_cmd(a, b, "pa");
+			}
+			if (a->last == 2)
+				solution_3a(a, b);
+			else
+				solution_3a2(a, b);
+			i = 3;
+			while (i-- && a->last > 2)
+				ft_apply_cmd(a, b, "ra");
+		}
+		if (b->last == 1 && b->ary[0] > b->ary[1])
+			ft_apply_cmd(a, b, "sb");
+		while (b->last > -1)
+		{
+			ft_apply_cmd(a, b, "pa");
+			ft_apply_cmd(a, b, "ra");
+			count++;
+		}
+		group++;
+	}
+}
+
 
 int			main(int argc, char **argv)
 {
@@ -230,7 +359,12 @@ int			main(int argc, char **argv)
 	ft_stackclear(&s_a);
 	ft_stackclear(&s_b);
 	if (ft_sort_check(&a, &b) == 0)
-		solution(&a, &b, n);
+	{
+		if (n <= 5)
+			solution(&a, &b, n);
+		else
+			sol(&a, &b, n);
+	}
 	free(a.ary);
 	free(b.ary);
 	return (0);

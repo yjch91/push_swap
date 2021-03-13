@@ -57,10 +57,11 @@ void		ft_read_cmd(t_array *a, t_array *b)
 	int		n;
 
 	n = get_next_line(0, &line);
+	ft_print(a, b); // print
 	while (n > 0)
 	{
 		ft_apply_cmd(a, b, line);
-		ft_print(a, b);
+		ft_print(a, b); // print
 		free(line);
 		n = get_next_line(0, &line);
 	}

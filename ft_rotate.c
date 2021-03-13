@@ -122,4 +122,3 @@ t_array		*ft_aryrotate_r_rt(t_array *ary, int size)
 	ft_aryrotate_r(result, 0);
 	return (result);
 }
-
