@@ -6,7 +6,7 @@
 /*   By: jayun <jayun@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 02:04:51 by jayun             #+#    #+#             */
-/*   Updated: 2021/03/14 02:04:52 by jayun            ###   ########.fr       */
+/*   Updated: 2021/03/14 02:25:36 by jayun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		ft_set_stack(char **argv, t_stack **a)
 {
 	int			i;
 	int			len;
-	int			n;
+	long long	n;
 
 	i = 0;
 	while (argv[++i] != 0)
