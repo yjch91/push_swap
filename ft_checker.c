@@ -1,5 +1,14 @@
 #include "push_swap.h"
 
+static void	ft_wrong_cmd_exit(t_array *a, t_array *b, char *line)
+{
+	write(2, "Error\n", 6);
+	free(a->ary);
+	free(b->ary);
+	free(line);
+	exit(0);
+}
+
 void		ft_apply_cmd(t_array *a, t_array *b, char *line)
 {
 	if (ft_strncmp(line, "sa", 2) == 0 && ft_strlen(line) == 2)
@@ -28,40 +37,15 @@ void		ft_apply_cmd(t_array *a, t_array *b, char *line)
 		ft_wrong_cmd_exit(a, b, line);
 }
 
-void		ft_print(t_array *a, t_array *b)
-{
-	int	i;
-
-	write(1, "a : ", 4);
-	i = 0;
-	while (i <= a->last)
-	{
-		ft_putnbr_fd(a->ary[i], 1);
-		write(1, " ", 1);
-		i++;
-	}
-	i = 0;
-	write(1, "<> b : ", 7);
-	while (i <= b->last)
-	{
-		ft_putnbr_fd(b->ary[i], 1);
-		write(1, " ", 1);
-		i++;
-	}
-	write(1, "\n", 1);
-}
-
-void		ft_read_cmd(t_array *a, t_array *b)
+static void	ft_read_cmd(t_array *a, t_array *b)
 {
 	char	*line;
 	int		n;
 
 	n = get_next_line(0, &line);
-	ft_print(a, b); // print
 	while (n > 0)
 	{
 		ft_apply_cmd(a, b, line);
-		ft_print(a, b); // print
 		free(line);
 		n = get_next_line(0, &line);
 	}

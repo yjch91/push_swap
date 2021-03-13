@@ -17,13 +17,6 @@ void	ft_stackadd_back(t_stack **st, t_stack *new)
 		*st = new;
 }
 
-void	ft_stackadd_front(t_stack **st, t_stack *new)
-{
-	if (*st)
-		new->next = *st;
-	*st = new;
-}
-
 void	ft_stackclear(t_stack **st)
 {
 	t_stack	*temp;

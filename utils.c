@@ -76,11 +76,26 @@ t_array		*ft_arycopy(t_array *ary, int size)
 	return (result);
 }
 
-void		ft_wrong_cmd_exit(t_array *a, t_array *b, char *line)
+void		bubble_sort(t_array *c, int n)
 {
-	write(2, "Error\n", 6);
-	free(a->ary);
-	free(b->ary);
-	free(line);
-	exit(0);
+	int	i;
+	int	j;
+	int temp;
+
+	i = n - 1;
+	while (i > 0)
+	{
+		j = 0;
+		while (j < i)
+		{
+			if (c->ary[j] > c->ary[j + 1])
+			{
+				temp = c->ary[j];
+				c->ary[j] = c->ary[j + 1];
+				c->ary[j + 1] = temp;
+			}
+			j++;
+		}
+		i--;
+	}
 }
