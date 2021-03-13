@@ -1,14 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sol.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jayun <jayun@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/14 02:05:37 by jayun             #+#    #+#             */
+/*   Updated: 2021/03/14 02:20:03 by jayun            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-t_info		*ft_init_info(t_array *a, int n)
+static t_info	*ft_init_info(t_array *a, int n)
 {
 	t_info	*result;
 
 	result = (t_info *)malloc(sizeof(t_info));
 	result->group = 1;
-	if (n <= 10)
-		result->set = 1;
-	else if (n <= 50)
+	if (n <= 50)
 		result->set = 2;
 	else if (n <= 100)
 		result->set = 3;
@@ -25,7 +35,7 @@ t_info		*ft_init_info(t_array *a, int n)
 	return (result);
 }
 
-void		sol3(t_array *a, t_array *b, t_info *info, int push_num)
+static void		sol3(t_array *a, t_array *b, t_info *info, int push_num)
 {
 	int	num;
 	int	i;
@@ -54,7 +64,7 @@ void		sol3(t_array *a, t_array *b, t_info *info, int push_num)
 		ft_apply_cmd(a, b, "ra");
 }
 
-void		sol2(t_array *a, t_array *b, t_info *info)
+static void		sol2(t_array *a, t_array *b, t_info *info)
 {
 	int	num;
 
@@ -78,7 +88,7 @@ void		sol2(t_array *a, t_array *b, t_info *info)
 			ft_apply_cmd(a, b, "rra");
 }
 
-void		sol(t_array *a, t_array *b, int n)
+void			sol(t_array *a, t_array *b, int n)
 {
 	t_info	*info;
 
