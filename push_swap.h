@@ -6,7 +6,7 @@
 /*   By: jayun <jayun@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 02:05:24 by jayun             #+#    #+#             */
-/*   Updated: 2021/03/14 02:08:31 by jayun            ###   ########.fr       */
+/*   Updated: 2021/03/14 22:00:14 by jayun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,6 @@ int					get_next_line(int fd, char **line);
 */
 
 void				sol(t_array *a, t_array *b, int n);
-
-/*
-**	sol_3a_back
-*/
-
-void				sol_3a_back(t_array *a, t_array *b);
 
 /*
 **	sol3_5

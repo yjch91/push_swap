@@ -6,7 +6,7 @@
 /*   By: jayun <jayun@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 02:05:37 by jayun             #+#    #+#             */
-/*   Updated: 2021/03/14 02:20:03 by jayun            ###   ########.fr       */
+/*   Updated: 2021/03/14 21:57:58 by jayun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ static t_info	*ft_init_info(t_array *a, int n)
 	result->group = 1;
 	if (n <= 50)
 		result->set = 2;
-	else if (n <= 100)
+	else if (n <= 200)
 		result->set = 3;
 	else
-		result->set = n / (n / 10);
-	if (result->set == 0)
-		result->set = 1;
+		result->set = n / 60;
 	result->n = n;
 	result->back = 0;
 	result->count = 0;
@@ -38,30 +36,26 @@ static t_info	*ft_init_info(t_array *a, int n)
 static void		sol3(t_array *a, t_array *b, t_info *info, int push_num)
 {
 	int	num;
-	int	i;
 
 	push_num = 0;
-	while (push_num++ < 3)
+	num = info->c->ary[info->count + 2];
+	while (push_num < 3)
 	{
-		num = info->c->ary[info->count++];
-		i = 0;
-		while (b->ary[i] != num)
-			i++;
-		if (i <= (b->last + 1) / 2)
-			while (i--)
-				ft_apply_cmd(a, b, "rb");
-		else
+		if (b->ary[0] <= num)
 		{
-			i = b->last + 1 - i;
-			while (i--)
-				ft_apply_cmd(a, b, "rrb");
+			ft_apply_cmd(a, b, "pa");
+			push_num++;
 		}
-		ft_apply_cmd(a, b, "pa");
+		else
+			ft_apply_cmd(a, b, "rb");
+		if (a->ary[0] == info->c->ary[info->count])
+			ft_apply_cmd(a, b, "ra");
 	}
-	sol_3a_back(a, b);
-	i = 3;
-	while (i--)
-		ft_apply_cmd(a, b, "ra");
+	if (a->ary[0] > a->ary[1])
+		ft_apply_cmd(a, b, "sa");
+	ft_apply_cmd(a, b, "ra");
+	ft_apply_cmd(a, b, "ra");
+	info->count += 3;
 }
 
 static void		sol2(t_array *a, t_array *b, t_info *info)

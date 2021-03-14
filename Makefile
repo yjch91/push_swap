@@ -11,7 +11,7 @@ LFLAGS = -L ./libft
 LIBS = -lft
 
 SRCS = ft_stack.c utils.c ft_swap.c ft_push.c ft_rotate.c ft_set_stack.c \
-	   get_next_line.c sol.c sol_3a_back.c sol3_5.c
+	   get_next_line.c sol.c sol3_5.c
 
 SRCS_C = ft_checker.c
 
