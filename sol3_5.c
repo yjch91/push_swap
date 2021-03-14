@@ -6,7 +6,7 @@
 /*   By: jayun <jayun@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 02:05:45 by jayun             #+#    #+#             */
-/*   Updated: 2021/03/14 02:19:58 by jayun            ###   ########.fr       */
+/*   Updated: 2021/03/14 19:42:53 by jayun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void		sol3_5(t_array *a, t_array *b, int n)
 	t_array	*c;
 	int		i;
 
-	if (n == 3)
+	if (n == 2)
+		ft_apply_cmd(a, b, "sa");
+	else if (n == 3)
 		sol_3a(a, b);
 	else
 	{
